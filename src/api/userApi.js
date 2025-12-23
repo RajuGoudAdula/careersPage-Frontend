@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BaseURL = 'http://localhost:5000/api';
+// const BaseURL = 'http://localhost:5000/api';
+const BaseURL = 'https://careerspage-backend.onrender.com';
 
 const userApi = {
     getCompaniesForUser : async (page) => {
