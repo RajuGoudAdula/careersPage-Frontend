@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const BASE_URL = 'http://localhost:5000/api'; // ✅ Add your backend base URL
-const BACKEND_URL = 'https://careerspage-backend.onrender.com';
+const BACKEND_URL = 'https://careerspage-backend.onrender.com/api';
 
 const getToken = () => localStorage.getItem('adminToken');
 
