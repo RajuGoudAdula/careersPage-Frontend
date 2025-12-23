@@ -1,0 +1,29 @@
+.marqueeWrapper {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 10px 0;
+  }
+  
+  .marqueeContent {
+    display: inline-block;
+    white-space: nowrap;
+    font-size: 2rem;
+    font-weight: 700;
+    animation: scrollLeft 18s linear infinite;
+    color: #000;
+    opacity: 0.9;
+  }
+  
+  /* Infinite scrolling animation */
+  @keyframes scrollLeft {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  

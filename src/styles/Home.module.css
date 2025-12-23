@@ -1,0 +1,353 @@
+/* ----------------------------------------
+   MAIN CONTAINER
+---------------------------------------- */
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.title {
+  margin-bottom: 10px;
+  margin-left: 5px;
+}
+
+/* ----------------------------------------
+   GRID LAYOUT
+---------------------------------------- */
+.grid {
+  display: grid;
+  gap: 20px;
+  grid-auto-rows: minmax(140px, auto); /* very important */
+  padding: 10px 0px;
+  margin-top: 10px;
+}
+
+/* Desktop: 4 columns */
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Tablet: 2 columns */
+@media (min-width: 600px) and (max-width: 899px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile: 1 column */
+@media (max-width: 599px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ----------------------------------------
+   COMPANY CARD BASE
+---------------------------------------- */
+.companyCard {
+  background: #f5f5f7;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  transition: all 0.4s ease;
+  min-height: 140px;
+  border: solid 1px #e5e5e785;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ----------------------------------------
+   EXPANDED BEHAVIOR
+---------------------------------------- */
+
+/* DESKTOP: expand downward covering 2 rows */
+@media (min-width: 900px) {
+  .companyCard.expanded {
+    grid-row: span 2;
+    grid-column: span 1; /* stays in the same column */
+    min-height: 320px;
+  }
+}
+
+/* TABLET: expand downward covering 2 rows */
+@media (min-width: 600px) and (max-width: 899px) {
+  .companyCard.expanded {
+    grid-row: span 2;
+    min-height: 360px;
+  }
+}
+
+/* MOBILE: expand downward, scroll inside
+@media (max-width: 599px) {
+  .companyCard.expanded {
+    min-height: 520px;
+  }
+} */
+
+.companySection{
+  font-size: medium;
+  padding: 0;
+  margin: 0;
+}
+
+/* ----------------------------------------
+   LOGO TRANSITION (same)
+---------------------------------------- */
+.logo {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+
+  transform-origin: center center;
+
+  transition:
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    top 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    left 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.companyCard.expanded .logo {
+  width: 100px;
+  height: 75px;
+  top: 0;
+  left: 0;
+  transform: translate(0, 0) scale(0.45);
+  background: #f5f5f7;
+  border-radius: 12px;
+  border: solid 1px #e5e5e785;
+}
+
+/* ----------------------------------------
+   COMPANY NAME
+---------------------------------------- */
+.companyName {
+  margin-bottom: 5px;
+  margin-left: 5px;
+  font-size: larger;
+  font-weight: 900;
+}
+
+/* ----------------------------------------
+   JOB LIST CONTAINER (scrollable)
+---------------------------------------- */
+.jobsContainer {
+  width: 100%;
+  padding: 2%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  overflow-y: auto;
+  max-height: 240px; /* scroll only inside this area */
+
+  scrollbar-width: thin;
+}
+
+/* Smooth scrolling */
+.jobsContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.jobsContainer::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+.jobsContainer::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+/* ----------------------------------------
+   JOB CARD
+---------------------------------------- */
+.jobCard {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  max-width: 310px;
+}
+
+.jobCard:active {
+  transform: scale(0.98);
+}
+
+.faviconWrapper{
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.favicon{
+  width:-webkit-fill-available;
+  height: -webkit-fill-available;
+  border-radius: 10px;
+}
+
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #6e6e73;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.icon {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+  opacity: 0.9;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* Posted text */
+.posted {
+  font-size: 12px;
+  font-weight: 500;
+  color: #86868b;
+}
+
+/* Apply link */
+.apply {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  padding: 5px;
+  border-radius: 5px;
+
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  text-decoration: none;
+
+  color: #2563eb; /* Primary blue (trust) */
+  background: rgba(37, 99, 235, 0.08);
+
+  border: 1px solid rgba(37, 99, 235, 0.18);
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.25s ease;
+}
+
+/* Hover (Premium lift effect) */
+.apply:hover {
+  background: #0071e3;
+  color: #ffffff;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 8px 20px rgba(37, 99, 235, 0.25),
+    0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* Active (Press feel) */
+.apply:active {
+  transform: translateY(0);
+  box-shadow:
+    0 4px 10px rgba(37, 99, 235, 0.18);
+}
+
+/* Keyboard accessibility */
+.apply:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.35);
+}
+
+
+.content{
+  padding:0px 10px;
+}
+/* ----------------------------------------
+   PAGINATION
+---------------------------------------- */
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.pagination button {
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+
+/* ----------------------------------------
+   FADE-IN ANIMATION
+---------------------------------------- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.jobsSection{
+  border: solid 1px #f5f5f7;
+  border-radius: 10px;
+  padding: 3%;
+  margin: 20px 0;
+  background-color: #f5f5f7;
+}
+
+.expandeIcon{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}

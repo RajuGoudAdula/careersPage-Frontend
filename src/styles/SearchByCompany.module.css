@@ -1,0 +1,292 @@
+/* ================= CONTAINER ================= */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px;
+    font-family: 'Arial', sans-serif;
+    color: #222;
+  }
+  
+  /* ================= LOADER ================= */
+  .loader {
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 40px 0;
+  }
+  
+  /* ================= HERO ================= */
+  .companyHero {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+  
+  .heroCard {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    background: linear-gradient(
+      90deg,
+      #a6ddff 0%,
+      #bfe7ff 35%,
+      #d6efff 65%,
+      #eaf6ff 100%
+    );;
+    padding: 24px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .logoBox {
+    flex: 0 0 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  .logoBox img.logo {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  
+  .companyMeta {
+    flex: 1;
+    min-width: 200px;
+    text-align: justify;
+  }
+  
+  .companyMeta h1 {
+    font-size: 2rem;
+    margin: 0 0 8px;
+    text-align: justify;
+  }
+  
+  .companyMeta .subtitle {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 16px;
+  }
+  
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  
+  .actions a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #0073e6;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background 0.2s ease;
+  }
+  
+  .actions a:hover {
+    background: #005bb5;
+  }
+  
+  /* ================= DETAILS ================= */
+  .details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  
+  .about {
+    flex: 2;
+    min-width: 250px;
+    background: #fff;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+  }
+  
+  .about h2 {
+    font-size: 1.5rem;
+    margin: 8px;
+  }
+  
+  .about p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #444;
+  }
+  
+  .infoCard {
+    flex: 1;
+    min-width: 200px;
+    background: #fff;
+    padding: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  /* ================= INFO ROW ================= */
+  .infoRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .infoIcon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0073e6;
+  }
+  
+  .infoRow small {
+    display: block;
+    font-size: 0.75rem;
+    color: #666;
+  }
+  
+  .infoRow strong {
+    font-size: 1rem;
+    color: #222;
+  }
+  
+  /* ================= JOBS ================= */
+  .jobsHeader {
+    margin-bottom: 16px;
+  }
+  
+  .jobsHeader h2 {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+  
+  .jobsHeader h2 span {
+    color: #0073e6;
+    font-weight: 500;
+  }
+  
+  .jobList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  
+  /* ================= PAGINATION ================= */
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  
+  .pagination button {
+    padding: 6px 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .pagination span {
+    font-size: 1rem;
+  }
+  
+  /* ================= ICONS ================= */
+  .actions svg {
+    width: 20px;
+    height: 20px;
+    fill: white;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+
+  .infoCard svg{
+    fill: #0071e3;
+  }
+
+  br{
+    display: none;
+  }
+  
+  /* ================= RESPONSIVE ================= */
+  @media (max-width: 760px) {
+    .heroCard {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    br{
+      display: inline;
+    }
+  
+    .companyMeta {
+      align-items: center;
+    }
+
+    .companyMeta h1{
+      text-align: center;
+    }
+  
+    .actions {
+      justify-content: center;
+    }
+  
+    .details {
+      flex-direction: column;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .heroCard {
+      padding: 16px;
+      gap: 16px;
+    }
+  
+    .about h2, .jobsHeader h2 {
+      font-size: 1.25rem;
+    }
+  
+    .actions a {
+      padding: 6px 12px;
+      font-size: 0.8rem;
+    }
+    .dot{
+      display: none;
+    }
+    .subtitle{
+      text-align: center;
+    }
+
+    .jobList{
+      justify-items: center;
+      }
+  }
+
+  
+  

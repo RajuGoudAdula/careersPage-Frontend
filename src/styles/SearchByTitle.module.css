@@ -1,0 +1,87 @@
+.container {
+    max-width: 960px;
+    padding: 24px 16px 48px;
+  }
+  
+  .heading {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #0f172a;
+  }
+  
+  .heading span {
+    color: #2563eb; /* brand blue */
+  }
+  
+  .jobList {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  /* Loading */
+  .loader {
+    padding: 40px 0;
+    text-align: center;
+    color: #64748b;
+    font-size: 0.95rem;
+  }
+  
+  /* Empty state */
+  .emptyState {
+    padding: 48px 16px;
+    text-align: center;
+    color: #475569;
+    font-size: 0.95rem;
+  }
+  
+  /* Pagination */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin-top: 28px;
+  }
+  
+  .pagination span {
+    font-size: 0.9rem;
+    color: #334155;
+  }
+  
+  .pagination button {
+    min-width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid #dbeafe;
+    background: #ffffff;
+    color: #2563eb;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  
+  .pagination button:hover:not(:disabled) {
+    background: #eff6ff;
+  }
+  
+  .pagination button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  
+  /* Responsive */
+  @media (max-width: 640px) {
+    .heading {
+      font-size: 1.3rem;
+    }
+  
+    .container {
+      padding: 16px 12px 32px;
+    }
+    .jobList{
+    justify-items: center;
+    }
+  }
+  
