@@ -38,12 +38,64 @@ export default function SearchByCompany({ query }) {
     setPage(1);
   }, [query]);
 
-  if (loading) return <div className={styles.loader}>Loading jobs…</div>;
+  /* ================= SKELETON UI ================= */
+  if (loading) {
+    return (
+      <div className={styles.container}>
+        {/* HERO */}
+        <section className={styles.companyHero}>
+          <div className={`${styles.heroCard} ${styles.skeleton}`}>
+            <div className={styles.logoBoxSkeleton} />
+            <div className={styles.companyMeta}>
+              <div className={styles.skelTitle} />
+              <div className={styles.skelSubtitle} />
+              <div className={styles.skelActions}>
+                <div />
+                <div />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* DETAILS */}
+        <section className={styles.details}>
+          <div className={`${styles.about} ${styles.skeleton}`}>
+            <div className={styles.skelHeading} />
+            <div className={styles.skelLine} />
+            <div className={styles.skelLine} />
+            <div className={styles.skelLineShort} />
+          </div>
+
+          <div className={`${styles.infoCard} ${styles.skeleton}`}>
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className={styles.skelInfoRow}>
+                <div className={styles.skelIcon} />
+                <div className={styles.skelText} />
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* JOBS */}
+        <section className={styles.jobsHeader}>
+          <div className={styles.skelHeading} />
+        </section>
+
+        <div className={styles.jobList}>
+          {[1, 2, 3, 4, 5, 6,7,8].map((i) => (
+            <div key={i} className={`${styles.jobSkeleton} ${styles.skeleton}`} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   if (!company) return <p>Company not found</p>;
 
+  /* ================= REAL UI ================= */
   return (
     <div className={styles.container}>
-      {/* ================= HERO ================= */}
+      {/* HERO */}
       <section className={styles.companyHero}>
         <div className={styles.heroCard}>
           <div className={styles.logoBox}>
@@ -59,19 +111,18 @@ export default function SearchByCompany({ query }) {
           <div className={styles.companyMeta}>
             <h1>{company.companyName}</h1>
             <p className={styles.subtitle}>
-              {company.industry} <span className={styles.dot}>•</span> <br /> {company.companySize}
+              {company.industry} <span className={styles.dot}>•</span> <br />
+              {company.companySize}
             </p>
 
             <div className={styles.actions}>
               {company.website && (
                 <a href={company.website} target="_blank" rel="noreferrer">
-                  <GlobeIcon />
                   Visit Website
                 </a>
               )}
               {company.careersPage && (
                 <a href={company.careersPage} target="_blank" rel="noreferrer">
-                  <BriefcaseIcon />
                   View Careers Page
                 </a>
               )}
@@ -80,7 +131,7 @@ export default function SearchByCompany({ query }) {
         </div>
       </section>
 
-      {/* ================= DETAILS ================= */}
+      {/* DETAILS */}
       <section className={styles.details}>
         <div className={styles.about}>
           <h2>About {company.companyName}</h2>
@@ -88,14 +139,14 @@ export default function SearchByCompany({ query }) {
         </div>
 
         <div className={styles.infoCard}>
-          <InfoRow icon={<IndustryIcon />} label="Industry" value={company.industry} />
-          <InfoRow icon={<AtsIcon />} label="ATS" value={company.atsUsed || "None / Custom ATS"} />
-          <InfoRow icon={<UsersIcon />} label="Company Size" value={company.companySize} />
-          <InfoRow icon={<MailIcon />} label="Contact" value={company.contactEmail} />
+          <InfoRow label="Industry" value={company.industry} />
+          <InfoRow label="ATS" value={company.atsUsed || "None / Custom ATS"} />
+          <InfoRow label="Company Size" value={company.companySize} />
+          <InfoRow label="Contact" value={company.contactEmail} />
         </div>
       </section>
 
-      {/* ================= JOBS ================= */}
+      {/* JOBS */}
       <section className={styles.jobsHeader}>
         <h2>
           Jobs at {company.companyName} <span>({jobs.length})</span>
@@ -112,28 +163,22 @@ export default function SearchByCompany({ query }) {
         </div>
       )}
 
-      {/* ================= PAGINATION ================= */}
+      {/* PAGINATION */}
       {totalPages > 1 && (
         <div className={styles.pagination}>
-          <button disabled={page === 1} onClick={() => setPage(p => p - 1)}>
-            ‹
-          </button>
+          <button disabled={page === 1} onClick={() => setPage(p => p - 1)}>‹</button>
           <span>Page {page} of {totalPages}</span>
-          <button disabled={page === totalPages} onClick={() => setPage(p => p + 1)}>
-            ›
-          </button>
+          <button disabled={page === totalPages} onClick={() => setPage(p => p + 1)}>›</button>
         </div>
       )}
     </div>
   );
 }
 
-/* ================= INFO ROW ================= */
-function InfoRow({ icon, label, value }) {
+function InfoRow({ label, value }) {
   if (!value) return null;
   return (
     <div className={styles.infoRow}>
-      <span className={styles.infoIcon}>{icon}</span>
       <div>
         <small>{label}</small>
         <strong>{value}</strong>
@@ -141,6 +186,7 @@ function InfoRow({ icon, label, value }) {
     </div>
   );
 }
+
 
 /* ================= ICONS (INLINE SVG) ================= */
 

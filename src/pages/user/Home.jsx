@@ -3,13 +3,15 @@ import styles from "../../styles/Home.module.css";
 import api from "../../api/userApi";
 import CompanyCard from "../../components/CompanyCard";
 import HeroSection from "../../components/HeroSection";
+import SkeletonCompanyCard from "../../components/SkeletonCompanyCard";
 
 export default function Home() {
   const [companies, setCompanies] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const jobSectionRef = useRef(null);
+  const [loading, setLoading] = useState(true);
 
+  const jobSectionRef = useRef(null);
 
   const scrollToJobs = () => {
     if (jobSectionRef.current) {
@@ -18,13 +20,15 @@ export default function Home() {
   };
 
   const fetchCompanies = async () => {
+    setLoading(true);
     try {
       const res = await api.getCompaniesForUser(page);
-      console.log(res);
       setCompanies(res.data.companies);
       setTotalPages(res.data.totalPages);
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -34,28 +38,31 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <HeroSection scrollToJobs={scrollToJobs}/>
-        <h2>Explore Companies</h2>
+      <HeroSection scrollToJobs={scrollToJobs} />
+
+      <h2>Explore Companies</h2>
+
       {/* Company Grid */}
       <div className={styles.grid} ref={jobSectionRef}>
-        {companies?.map((c) => (
-          <CompanyCard key={c._id} company={c} />
-        ))}
+        {loading
+          ? [...Array(8)].map((_, i) => (
+              <SkeletonCompanyCard key={i} />
+            ))
+          : companies?.map((c) => (
+              <CompanyCard key={c._id} company={c} />
+            ))}
       </div>
 
       {/* Pagination */}
       <div className={styles.pagination}>
-        <button
-          disabled={page === 1}
-          onClick={() => setPage(page - 1)}
-        >
+        <button disabled={page === 1 || loading} onClick={() => setPage(page - 1)}>
           Prev
         </button>
 
         <span>{page} / {totalPages}</span>
 
         <button
-          disabled={page === totalPages}
+          disabled={page === totalPages || loading}
           onClick={() => setPage(page + 1)}
         >
           Next

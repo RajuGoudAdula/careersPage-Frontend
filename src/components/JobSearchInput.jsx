@@ -53,7 +53,7 @@ export default function JobSearchInput() {
   };
 
   /* ------------------ Mode Change ------------------ */
-  const handleModeChange = async (newMode) => {
+  const handleModeChange = (newMode) => {
     setMode(newMode);
     setQuery("");
     setData([]);
@@ -135,26 +135,33 @@ export default function JobSearchInput() {
               Search
             </button>
           </div>
-
-          {loading && <span className={styles.loader} />}
         </div>
 
-        {/* Suggestions Dropdown (ALL MODES) */}
+        {/* Suggestions Dropdown */}
         {open && (
           <ul className={styles.dropdown}>
+            {/* Skeletons while loading */}
+            {loading && 
+              [...Array(5)].map((_, i) => (
+                <li key={i} className={styles.skeletonItem}>
+                  <span className={styles.skeletonLine} />
+                </li>
+              ))}
+
             {!loading && filtered.length === 0 && (
               <li className={styles.empty}>No results</li>
             )}
 
-            {filtered.map((item) => (
-              <li
-                key={item}
-                onClick={() => handleSelect(item)}
-                className={styles.option}
-              >
-                {item}
-              </li>
-            ))}
+            {!loading &&
+              filtered.map((item) => (
+                <li
+                  key={item}
+                  onClick={() => handleSelect(item)}
+                  className={styles.option}
+                >
+                  {item}
+                </li>
+              ))}
           </ul>
         )}
       </div>

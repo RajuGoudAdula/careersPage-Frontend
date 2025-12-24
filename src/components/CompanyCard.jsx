@@ -3,22 +3,27 @@ import styles from "../styles/Home.module.css";
 import JobCard from "./JobCard";
 import api from "../api/userApi";
 import { Link } from "react-router-dom";
+import SkeletonJobCard from "./SkeletonJobCard";
 
 export default function CompanyCard({ company }) {
   const [expanded, setExpanded] = useState(false);
   const [jobs, setJobs] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [loadingJobs, setLoadingJobs] = useState(false);
+
   const imgRef = useRef(null);
 
   const fetchJobs = async (pageNumber = 1) => {
     try {
+      setLoadingJobs(true);
       const res = await api.getCompanyJobs(company?._id, pageNumber);
-
       setJobs(res?.data?.jobs || []);
       setTotalPages(res?.data?.totalPages || 1);
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoadingJobs(false);
     }
   };
 
@@ -31,7 +36,7 @@ export default function CompanyCard({ company }) {
   };
 
   const handlePageChange = (newPage, e) => {
-    e.stopPropagation(); // 👈 prevent collapsing card
+    e.stopPropagation(); // prevent collapsing
     setPage(newPage);
     fetchJobs(newPage);
   };
@@ -63,12 +68,23 @@ export default function CompanyCard({ company }) {
             </a>
           </h2>
         )}
+
         {expanded && (
           <span className={styles.expandeIcon}>
-               <Link to={`/search?mode=company&q=${company?.companyName}`} onClick={(e) => e.stopPropagation()}> 
-                 <svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 -960 960 960" width="25px" fill="#434343"><path d="M240-240v-240h72v168h168v72H240Zm408-240v-168H480v-72h240v240h-72Z"/>
-                  </svg>
-               </Link>
+            <Link
+              to={`/search?mode=company&q=${company?.companyName}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="25px"
+                viewBox="0 -960 960 960"
+                width="25px"
+                fill="#434343"
+              >
+                <path d="M240-240v-240h72v168h168v72H240Zm408-240v-168H480v-72h240v240h-72Z" />
+              </svg>
+            </Link>
           </span>
         )}
       </div>
@@ -76,9 +92,21 @@ export default function CompanyCard({ company }) {
       {/* Jobs Section */}
       {expanded && (
         <div className={styles.jobsContainer}>
-          {jobs.length === 0 ? (
+          {/* 🔥 Skeleton while loading */}
+          {loadingJobs && (
+            <>
+              {[...Array(3)].map((_, i) => (
+                <SkeletonJobCard key={i} />
+              ))}
+            </>
+          )}
+
+          {/* Data loaded */}
+          {!loadingJobs && jobs.length === 0 && (
             <p className={styles.noJobs}>No jobs found</p>
-          ) : (
+          )}
+
+          {!loadingJobs && jobs.length > 0 && (
             <>
               {jobs.map((job) => (
                 <JobCard
@@ -88,7 +116,7 @@ export default function CompanyCard({ company }) {
                 />
               ))}
 
-              {/* PAGINATION */}
+              {/* Pagination */}
               {totalPages > 1 && (
                 <div className={styles.pagination}>
                   <button
