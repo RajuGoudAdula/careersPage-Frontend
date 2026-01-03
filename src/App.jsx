@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import NavBar from "./components/NavBar";
 import { Routes, Route } from "react-router-dom";
 import UserRoutes from "./routes/UserRoutes";
@@ -14,13 +14,22 @@ import "./App.css";
 
 export default function App() {
   const [alertOpen, setAlertOpen] = useState(false);
-  const [triggerSubmit, setTriggerSubmit] = useState(false);
 
-  useEffect(()=>{
+  // 🔑 ref to access child methods & state
+  const jobAlertFormRef = useRef(null);
+
+  // Modal submit button → child submitForm()
+  const handleSubmit = () => {
+    jobAlertFormRef.current?.submit();
+  };
+
+  useEffect(() => {
     const timer = setTimeout(() => {
       setAlertOpen(true);
     }, 10000);
-  },[]);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <>
@@ -29,12 +38,14 @@ export default function App() {
       <JobAlertModal
         isOpen={alertOpen}
         onClose={() => setAlertOpen(false)}
-        onSubmit={() => setTriggerSubmit(true)}
+        isUpdate={jobAlertFormRef.current?.isUpdate}
+        isDirty={jobAlertFormRef.current?.isDirty}
+        saving={jobAlertFormRef.current?.saving}
+        onSubmit={handleSubmit}
       >
         <JobAlertForm
+          ref={jobAlertFormRef}
           onSaved={() => setAlertOpen(false)}
-          triggerSubmit={triggerSubmit}
-          setTriggerSubmit={setTriggerSubmit}
         />
       </JobAlertModal>
 
@@ -50,9 +61,10 @@ export default function App() {
           }
         />
         <Route path="privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="terms-and-conditions" element={<TermsAndConditions />} />   
+        <Route path="terms-and-conditions" element={<TermsAndConditions />} />
       </Routes>
-      <Footer onNotifyClick={() => setAlertOpen(true)}/>
+
+      <Footer onNotifyClick={() => setAlertOpen(true)} />
     </>
   );
 }

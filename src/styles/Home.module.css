@@ -10,6 +10,10 @@
 .title {
   margin-bottom: 10px;
   margin-left: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* ----------------------------------------
@@ -140,6 +144,10 @@
   margin-left: 5px;
   font-size: larger;
   font-weight: 900;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* ----------------------------------------
@@ -350,4 +358,53 @@
   position: absolute;
   top: 10px;
   right: 10px;
+}
+
+.shareButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: 8px;
+  padding: 4px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.shareButton:hover svg {
+  fill: #0070f3; /* highlight on hover */
+}
+
+.shareSheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+  padding: 16px;
+  display: flex;
+  justify-content: space-around;
+  z-index: 1000;
+}
+
+.shareSheet button,
+.shareSheet a {
+  flex: 1;
+  margin: 0 8px;
+  padding: 8px 12px;
+  text-align: center;
+  border-radius: 8px;
+  border: none;
+  background: #f0f0f0;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+}
+
+.shareSheet button:hover,
+.shareSheet a:hover {
+  background: #e0e0e0;
 }

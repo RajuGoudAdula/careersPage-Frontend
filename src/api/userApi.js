@@ -21,6 +21,13 @@ const userApi = {
         console.log(data);
         return axios.post(`${BaseURL}/alert/submit-alert`,data);
     },
+    updateAlert : async (alertId, payload) => {
+        console.log(alertId, payload);
+        return axios.put(`${BaseURL}/alert/update-alert/${alertId}`,payload);
+    },
+    deleteAlert : async (alertId) => {
+        return  axios.delete(`${BaseURL}/alert/delete-userAlert/${alertId}`);
+    },
     getUserAlert : async (alertId) => {
         console.log(alertId);
         return axios.get(`${BaseURL}/alert/get-userAlert/${alertId}`);

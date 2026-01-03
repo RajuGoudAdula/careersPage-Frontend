@@ -1,317 +1,258 @@
-/* ========================= */
-/* Overlay Backdrop */
-.modalBackdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  backdrop-filter: blur(3px);
-  z-index: 9999;
-  overflow-y: auto;
-}
+/* ---------------- FORM WRAPPER ---------------- */
 
-/* ========================= */
-/* Modal Container */
-.modal {
-  width: 90%;
-  max-width: 550px;
-  max-height: 85vh;
-  overflow-y: auto;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 25px;
-  border-radius: 16px;
-  margin-top: 80px;
-  animation: fadeIn 0.25s ease-out;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
-
-  scrollbar-width: thin;
-}
-
-/* ========================= */
-/* Header */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.title {
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: #1a1a1a;
-}
-
-/* Close Button */
-.closeBtn {
-  border: none;
-  background: #e1e1e1;
-  font-size: 18px;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.closeBtn:hover {
-  background: #c8c8c8;
-}
-
-/* ========================= */
-/* Content Area */
-.content {
-  margin-top: 18px;
-}
-
-/* ========================= */
-/* Form Grid Layout */
 .form {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 14px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
 }
 
+/* ---------------- INPUTS ---------------- */
+
 .form input,
-.form select,
-.form textarea {
+.form select {
   width: 100%;
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid #dadada;
+  padding: 12px 14px;
   font-size: 14px;
-  transition: 0.2s ease;
+  border-radius: 8px;
+  border: 1px solid #dcdcdc;
+  outline: none;
+  background: #fff;
+  transition: border-color 0.2s ease;
 }
 
 .form input:focus,
-.form select:focus,
-.form textarea:focus {
-  border-color: #1a73e8;
-  box-shadow: 0 0 4px rgba(26, 115, 232, 0.4);
-  outline: none;
+.form select:focus {
+  border-color: #2563eb;
 }
 
-/* Make full-width row */
-.fullRow {
-  grid-column: span 2;
+/* ---------------- INPUT + BUTTON ---------------- */
+
+.inputWithButton {
   display: flex;
-  flex-direction: column;
   gap: 8px;
+  position: relative;
 }
 
-/* ========================= */
-/* Selected Tags */
-.tagsContainer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+.inputWithButton input {
+  flex: 1;
 }
 
-.tag {
-  display: flex;
-  align-items: center;
-  background: #eaf2ff;
-  padding: 6px 10px;
-  border-radius: 12px;
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+
+.inputWithButton button {
+  padding: 0 14px;
+  border-radius: 8px;
   font-size: 13px;
-  font-weight: 500;
-  gap: 6px;
-}
-
-.tagRemove {
-  background: transparent;
   border: none;
   cursor: pointer;
+  background: #2563eb;
+  color: #fff;
+  white-space: nowrap;
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  right: 3px;
+  display: flex;              
+  align-items: center;        
+  justify-content: center;    
+  min-width: 90px;            
+}
+
+.inputWithButton button:hover {
+  background: #1e4fd6;
+}
+
+/* ---------------- FULL WIDTH ROW ---------------- */
+
+.fullRow {
+  grid-column: 1 / -1;
+}
+
+/* ---------------- SKILLS ---------------- */
+
+.fullRow p {
+  margin-bottom: 6px;
   font-size: 14px;
-  color: #d60000;
+  font-weight: 500;
 }
 
-.tagRemove:hover {
-  transform: scale(1.2);
-}
-
-/* ========================= */
-/* Skill buttons */
 .skillOptions {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  margin-top: 8px;
 }
 
-.skillBtn {
+.skillOptions button {
   padding: 6px 12px;
-  border-radius: 12px;
-  border: 1px solid #d3d3d3;
-  background: white;
-  cursor: pointer;
   font-size: 13px;
-  transition: 0.2s;
-}
-
-.skillBtn:hover {
-  background: #e3e3e3;
-}
-
-.selected {
-  background: #1a73e8;
-  color: white;
-  border-color: #1a73e8;
-}
-
-/* ========================= */
-/* Submit Button */
-.submitBtn {
-  grid-column: span 2;
-  width: 100%;
-  padding: 11px;
-  border: none;
-  border-radius: 10px;
-  background: #1a73e8;
-  color: white;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
   cursor: pointer;
-  font-weight: 600;
-  font-size: 15px;
-  transition: 0.2s;
+  transition: all 0.2s ease;
 }
 
-.submitBtn:hover {
-  background: #155fcc;
+.skillOptions button:hover {
+  background: #e5e7eb;
 }
 
-/* Message text */
-.msg {
-  grid-column: span 2;
-  margin-top: 6px;
-  color: green;
+.skillOptions .selected {
+  background: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+}
+
+/* ---------------- SELECTED TAGS ---------------- */
+
+.tagsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 13px;
+}
+
+.tag button {
+  border: none;
+  background: transparent;
+  color: #1d4ed8;
+  cursor: pointer;
   font-size: 14px;
 }
 
-/* ========================= */
-/* Mobile */
-@media (max-width: 600px) {
-  .form {
-    grid-template-columns: 1fr;
-  }
+/* ---------------- PRIMARY BUTTON ---------------- */
 
-  .submitBtn,
-  .fullRow,
-  .msg {
-    grid-column: span 1;
-  }
-
-  .modal {
-    padding: 20px;
-  }
-}
-
-/* ========================= */
-/* Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
-/* ------------------------------
-   Parent container
------------------------------- */
-.inputWithButton {
-  position: relative;
-  width: 100%;
-  display: flex;
-  align-items: center;
-}
-
-/* ------------------------------
-   Input field
------------------------------- */
-.inputWithButton input {
-  width: 100%;
-  padding: 12px 14px;
-  padding-right: 120px; /* space for button inside */
-  border-radius: 12px;
-  border: 1px solid #d0d0d5;
-  background: #f5f5f7;
+.primaryBtn {
+  grid-column: 1 / -1;
+  padding: 12px;
   font-size: 15px;
-  outline: none;
-  transition: all 0.25s ease;
-}
-
-.inputWithButton input:focus {
-  background: #ffffff;
-  border-color: #0071e3;
-  box-shadow: 0 0 0 4px rgba(0,112,227,0.22);
-}
-
-/* ------------------------------
-   Button INSIDE input
------------------------------- */
-.otpBtn,
-.verifyBtn {
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-
-  padding: 7px 14px;
   border-radius: 10px;
   border: none;
-  font-size: 13.5px;
-  background: #0071e3;
-  color: white;
   cursor: pointer;
-  transition: all 0.25s ease;
-
-  height: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: #2563eb;
+  color: #fff;
+  font-weight: 500;
 }
 
-/* Hover effect */
-.otpBtn:hover,
-.verifyBtn:hover {
-  background: #0a84ff;
-  box-shadow: 0px 3px 10px rgba(0,112,227,0.35);
-}
-
-/* Disabled state */
-.otpBtn:disabled,
-.verifyBtn:disabled {
+.primaryBtn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-  box-shadow: none;
 }
 
-/* ------------------------------
-   Loader inside button
------------------------------- */
-.loader {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 2.5px solid #fff;
-  border-top-color: transparent;
-  animation: spin 0.7s linear infinite;
+.primaryBtn:hover:not(:disabled) {
+  background: #1e4fd6;
 }
 
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+/* ---------------- ACTION BUTTONS ---------------- */
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
 }
 
-/* ------------------------------
-   Mobile Responsive
------------------------------- */
-@media (max-width: 768px) {
-  .inputWithButton input {
-    padding-right: 110px;
+.actions button {
+  padding: 10px 14px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #f3f4f6;
+}
+
+.actions button:hover {
+  background: #e5e7eb;
+}
+
+/* ---------------- DELETE ---------------- */
+
+.deleteBtn {
+  background: #fee2e2 !important;
+  color: #b91c1c;
+}
+
+.deleteBtn:hover {
+  background: #fecaca !important;
+}
+
+
+
+.deleteBtn {
+  background-color: transparent; /* subtle base */
+  color: #e63946; /* ChatGPT-like soft red */
+  border: 1px solid #e63946;
+  padding:12px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: -webkit-fill-available;
+  margin-top: 16px;
+}
+
+.deleteBtn:hover:not(:disabled) {
+  background-color: #e63946; /* red fill on hover */
+  color: #fff; /* white text on hover */
+}
+
+.deleteBtn:disabled {
+  background-color: transparent;
+  color: #f1a1a8; /* lighter red */
+  border-color: #f1a1a8;
+  cursor: not-allowed;
+}
+
+
+/* ---------------- RESPONSIVE ---------------- */
+
+@media (max-width: 640px) {
+  .form {
+    padding: 16px;
+  }
+
+  .inputWithButton {
+    flex-direction: column;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+  .deleteBtn{
+    margin: 0px 16px;
+    margin-top: 0px;
   }
 }
