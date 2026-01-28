@@ -1,15 +1,32 @@
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import api from "../../api/userApi";
 import JobCard from "../../components/JobCard";
 import styles from "../../styles/SearchByTitle.module.css";
 
-export default function SearchByTitle({ query }) {
+export default function SearchByTitle() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const query = searchParams.get("q") || "";
+  const page = Number(searchParams.get("page")) || 1;
+
   const [jobs, setJobs] = useState([]);
-  const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
 
+  /* ---------------- ENSURE PAGE PARAM EXISTS ---------------- */
   useEffect(() => {
+    if (!searchParams.get("page")) {
+      const params = new URLSearchParams(searchParams);
+      params.set("page", 1);
+      setSearchParams(params, { replace: true });
+    }
+  }, []);
+
+  /* ---------------- FETCH JOBS ---------------- */
+  useEffect(() => {
+    if (!query) return;
+
     const fetchJobs = async () => {
       try {
         setLoading(true);
@@ -19,7 +36,7 @@ export default function SearchByTitle({ query }) {
           mode: "title",
           page,
         });
-        console.log(res?.data)
+
         setJobs(res?.data?.jobs || []);
         setTotalPages(res?.data?.totalPages || 1);
       } catch (err) {
@@ -32,16 +49,21 @@ export default function SearchByTitle({ query }) {
     fetchJobs();
   }, [query, page]);
 
-  // Reset page when query changes
-  useEffect(() => {
-    setPage(1);
-  }, [query]);
+  
 
+  /* ---------------- UPDATE PAGE IN URL ---------------- */
+  const updatePage = (newPage) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("page", newPage);
+    setSearchParams(params);
+  };
+
+  /* ---------------- UI ---------------- */
   if (loading) {
     return <div className={styles.loader}>Loading jobs…</div>;
   }
 
-  if (jobs.length === 0) {
+  if (!jobs.length) {
     return (
       <div className={styles.emptyState}>
         No jobs found for <strong>“{query}”</strong>
@@ -57,16 +79,20 @@ export default function SearchByTitle({ query }) {
 
       <div className={styles.jobList}>
         {jobs.map((job) => (
-          <JobCard key={job._id} job={job} favicon={job?.company?.favicon} expanded={true}/>
+          <JobCard
+            key={job._id}
+            job={job}
+            favicon={job?.company?.favicon}
+            expanded
+          />
         ))}
       </div>
 
-      {/* Pagination */}
       {totalPages > 1 && (
         <div className={styles.pagination}>
           <button
             disabled={page === 1}
-            onClick={() => setPage((p) => p - 1)}
+            onClick={() => updatePage(page - 1)}
           >
             ‹
           </button>
@@ -77,7 +103,7 @@ export default function SearchByTitle({ query }) {
 
           <button
             disabled={page === totalPages}
-            onClick={() => setPage((p) => p + 1)}
+            onClick={() => updatePage(page + 1)}
           >
             ›
           </button>

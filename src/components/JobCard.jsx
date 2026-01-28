@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
 
 export default function JobCard({ job, favicon, onClick, expanded }) {
   const [showShare, setShowShare] = useState(false);
 
-  useEffect(() => {
-    console.log(job._id);
-  }, []);
-
   const handleShare = () => {
-    const shareUrl = `${window.location.origin}${window.location.pathname}#job-${job._id}`;
+    const { origin} = window.location;
+    const shareUrl = `${origin}/jobs/${job?._id}`;
 
     // Mobile native share
     if (navigator.share) {
       navigator
         .share({
-          title: `Job: ${job.title}`,
-          text: `Check out this job at ${job.company?.companyName}`,
+          title: `${job?.title} – ${job?.company?.companyName}`,
+          text: `We’re hiring for the role of ${job?.title} at ${job?.company?.companyName}.
+    Location: ${job?.location}
+    Apply now or share with someone who might be a great fit.`,
           url: shareUrl,
         })
         .catch((err) => console.error("Error sharing:", err));
@@ -89,18 +88,6 @@ export default function JobCard({ job, favicon, onClick, expanded }) {
 
         <h4 className={styles.title}>
           {job.title}
-          {!expanded && (
-            <button
-              className={styles.shareButton}
-              onClick={(e) => {
-                e.stopPropagation();
-                handleShare();
-              }}
-              title="Share this job"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#434343"><path d="M648-96q-50 0-85-35t-35-85q0-9 4-29L295-390q-16 14-36.05 22-20.04 8-42.95 8-50 0-85-35t-35-85q0-50 35-85t85-35q23 0 43 8t36 22l237-145q-2-7-3-13.81-1-6.81-1-15.19 0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-23 0-43-8t-36-22L332-509q2 7 3 13.81 1 6.81 1 15.19 0 8.38-1 15.19-1 6.81-3 13.81l237 145q16-14 36.05-22 20.04-8 42.95-8 50 0 85 35t35 85q0 50-35 85t-85 35Zm0-72q20.4 0 34.2-13.8Q696-195.6 696-216q0-20.4-13.8-34.2Q668.4-264 648-264q-20.4 0-34.2 13.8Q600-236.4 600-216q0 20.4 13.8 34.2Q627.6-168 648-168ZM216-432q20.4 0 34.2-13.8Q264-459.6 264-480q0-20.4-13.8-34.2Q236.4-528 216-528q-20.4 0-34.2 13.8Q168-500.4 168-480q0 20.4 13.8 34.2Q195.6-432 216-432Zm432-264q20.4 0 34.2-13.8Q696-723.6 696-744q0-20.4-13.8-34.2Q668.4-792 648-792q-20.4 0-34.2 13.8Q600-764.4 600-744q0 20.4 13.8 34.2Q627.6-696 648-696Zm0 480ZM216-480Zm432-264Z"/></svg>
-            </button>
-          )}
         </h4>
 
         <div className={styles.meta}>
@@ -126,9 +113,7 @@ export default function JobCard({ job, favicon, onClick, expanded }) {
           </span>
 
           <a
-            href={job.link}
-            target="_blank"
-            rel="noreferrer"
+            href={`/jobs/${job._id}`} // internal route
             className={styles.apply}
             onClick={(e) => e.stopPropagation()}
           >

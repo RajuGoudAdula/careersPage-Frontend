@@ -17,6 +17,8 @@ export default function CompanyFormModal({ close, fetchCompanies, editCompany })
     contactEmail: ""
   });
 
+  const [websiteUrl,setWebsiteUrl] = useState("");
+
   const industries = [
     "Information Technology",
     "E-Commerce",
@@ -74,12 +76,27 @@ export default function CompanyFormModal({ close, fetchCompanies, editCompany })
     close();
   };
 
+  const handleAiInput = async (e) => {
+    e.preventDefault();
+    if(!websiteUrl) return;
+    const res = await api.sendURLtoAi(websiteUrl);
+    console.log(res);
+  }
+
   return (
     <div className={styles.modalBackdrop}>
       <div className={styles.modal}>
         <h2 className={styles.title}>
           {editCompany ? "Update Company" : "New Company Registration"}
         </h2>
+
+          {/* <input placeholder="Fill the form using AI by submitting company website URL"
+          value={websiteUrl} 
+          onChange={e => setWebsiteUrl(e.target.value)}
+          />
+
+          <button onClick={handleAiInput}>Use AI</button> */}
+
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <input

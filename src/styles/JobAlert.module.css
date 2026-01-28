@@ -256,3 +256,169 @@ button:disabled {
     margin-top: 0px;
   }
 }
+
+/* ===============================
+   Layout
+================================ */
+
+.fullRow {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fullRow p {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+/* ===============================
+   Input with chips
+================================ */
+
+.multiInput {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background-color: #ffffff;
+  cursor: text;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.multiInput:focus-within {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* ===============================
+   Input
+================================ */
+
+.multiInput input {
+  flex: 1;
+  min-width: 180px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  padding: 4px 0;
+  background: transparent;
+  color: #111827;
+}
+
+.multiInput input::placeholder {
+  color: #9ca3af;
+}
+
+/* ===============================
+   Selected tags (chips)
+================================ */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.tag button {
+  border: none;
+  background: none;
+  font-size: 14px;
+  cursor: pointer;
+  line-height: 1;
+  opacity: 0.7;
+  padding: 0;
+}
+
+.tag button:hover {
+  opacity: 1;
+}
+
+/* ===============================
+   Category colors
+================================ */
+
+.role {
+  background-color: #e0ecff;
+  color: #1e40af;
+}
+
+.tech {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.area {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+/* ===============================
+   Dropdown
+================================ */
+
+.dropdown {
+  margin-top: 6px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 20;
+}
+
+/* ===============================
+   Dropdown groups
+================================ */
+
+.group {
+  padding: 6px 0;
+}
+
+.groupLabel {
+  display: block;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* ===============================
+   Dropdown options
+================================ */
+
+.option {
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #111827;
+  transition: background-color 0.15s ease;
+}
+
+.option:hover {
+  background-color: #f3f4f6;
+}
+
+/* Disabled state (when limit reached or already selected) */
+.option:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}

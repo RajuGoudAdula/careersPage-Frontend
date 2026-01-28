@@ -1,6 +1,5 @@
 .container {
-    max-width: 960px;
-    padding: 24px 16px 48px;
+    padding: 0px 25px 25px 25px;
   }
   
   .heading {
@@ -16,7 +15,7 @@
   
   .jobList {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 16px;
   }
   
@@ -77,11 +76,26 @@
       font-size: 1.3rem;
     }
   
-    .container {
-      padding: 16px 12px 32px;
-    }
     .jobList{
     justify-items: center;
+    }
+  }
+  
+  .highlight {
+    animation: pulseHighlight 2.5s ease-in-out;
+    border: 2px solid #2563eb;
+    border-radius: 12px;
+  }
+  
+  @keyframes pulseHighlight {
+    0% {
+      background: rgba(37, 99, 235, 0.15);
+    }
+    50% {
+      background: rgba(37, 99, 235, 0.3);
+    }
+    100% {
+      background: transparent;
     }
   }
   

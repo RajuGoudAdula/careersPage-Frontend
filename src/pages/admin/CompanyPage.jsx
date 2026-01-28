@@ -133,7 +133,7 @@ export default function CompanyPage() {
           <div className={styles.jobsHeader}>
             <h2>Jobs</h2>
             <button onClick={openNewJobModal} className={styles.newJobBtn}>
-              + New Job
+            New Job
             </button>
           </div>
 

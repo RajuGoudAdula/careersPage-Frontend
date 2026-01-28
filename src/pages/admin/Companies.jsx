@@ -39,7 +39,7 @@ export default function Companies() {
       <div className={styles.topBar}>
         <h2>Registered Companies</h2>
         <button className={styles.newBtn} onClick={openNewModal}>
-          + New Company
+          New Company
         </button>
       </div>
 

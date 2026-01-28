@@ -7,9 +7,19 @@ export default function HeroSection({scrollToJobs}) {
     <section className={styles.hero}>
       <div className={styles.content}>
         <h1 className={styles.title}>
-          JOB PORTALS DON'T RESPOND.<br />
-          <span className={styles.highlight}>COMPANIES DO.</span>
+          <span className={styles.desktop}>
+            JOB PORTALS DON'T RESPOND.<br />
+            <span className={styles.highlight}>COMPANIES DO.</span>
+          </span>
+
+          <span className={styles.mobile}>
+            JOB PORTALS<br />
+            DON'T<br />
+            RESPOND.<br />
+            <span className={styles.highlight}>COMPANIES DO.</span>
+          </span>
         </h1>
+
 
         <p className={styles.subtitle}>
           With <strong>careerspage</strong>, apply once, reach real company career pages — 

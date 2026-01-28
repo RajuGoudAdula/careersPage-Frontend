@@ -66,13 +66,13 @@ export default function JobSearchInput() {
   const handleSelect = (value) => {
     setQuery(value);
     setOpen(false);
-    navigate(`/search?mode=${mode}&q=${encodeURIComponent(value)}`);
+    navigate(`/search?mode=${mode}&q=${encodeURIComponent(value)}&page=1`);
   };
 
   /* ------------------ Search ------------------ */
   const handleSearch = () => {
     if (!query.trim()) return;
-    navigate(`/search?mode=${mode}&q=${encodeURIComponent(query.trim())}`);
+    navigate(`/search?mode=${mode}&q=${encodeURIComponent(query.trim())}&page=1`);
     setOpen(false);
   };
 

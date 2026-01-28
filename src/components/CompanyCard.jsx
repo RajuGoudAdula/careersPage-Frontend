@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, {  useRef, useState } from "react";
 import styles from "../styles/Home.module.css";
 import JobCard from "./JobCard";
 import api from "../api/userApi";
@@ -13,6 +13,7 @@ export default function CompanyCard({ company }) {
   const [loadingJobs, setLoadingJobs] = useState(false);
 
   const imgRef = useRef(null);
+
 
   const fetchJobs = async (pageNumber = 1) => {
     try {

@@ -3,7 +3,6 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 16px;
-    font-family: 'Arial', sans-serif;
     color: #222;
   }
   
@@ -22,24 +21,72 @@
   }
   
   .heroCard {
+    position: relative;
     display: flex;
-    flex-direction: row;
     gap: 24px;
-    background: linear-gradient(
-      90deg,
-      #a6ddff 0%,
-      #bfe7ff 35%,
-      #d6efff 65%,
-      #eaf6ff 100%
-    );;
-    padding: 24px;
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    width: 100%;
     align-items: center;
     flex-wrap: wrap;
+  
+    padding: 28px;
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+  
+    /* BASE DIAGONAL GRADIENT */
+    background:
+      linear-gradient(
+        135deg,
+        #3b82f6 0%,
+        #5b6cf6 35%,
+        #8b7cf6 65%,
+        #d8c9ff 100%
+      );
+  
+    box-shadow:
+      0 10px 30px rgba(0, 0, 0, 0.12);
+  
+    border: 1px solid rgba(255, 255, 255, 0.35);
   }
+
+  .heroCard::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+  
+    background:
+      radial-gradient(
+        120% 60% at 100% 65%,
+        rgba(255, 255, 255, 0.45) 0%,
+        rgba(255, 255, 255, 0.35) 30%,
+        rgba(255, 255, 255, 0.18) 55%,
+        rgba(255, 255, 255, 0.08) 70%,
+        transparent 80%
+      );
+  
+    z-index: 0;
+  }
+
+  .heroCard::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.12) 0%,
+        rgba(255, 255, 255, 0.06) 35%,
+        transparent 70%
+      );
+  
+    z-index: 0;
+  }
+
+  .heroCard > * {
+    position: relative;
+    z-index: 1;
+  }
+  
   
   .logoBox {
     flex: 0 0 120px;

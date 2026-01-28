@@ -20,7 +20,7 @@
   /* TITLE */
   .title {
     font-size: 3.2rem;
-    font-weight: 700;
+    font-weight: 800;
     line-height: 1.1;
     color: #111;
     margin-bottom: 18px;
@@ -108,3 +108,28 @@
     to { opacity: 1; transform: translateY(0); }
   }
   
+ 
+  
+  /* Desktop */
+  .desktop {
+    display: block;
+  }
+  
+  /* Mobile */
+  .mobile {
+    display: none;
+  }
+  
+  /* Breakpoint */
+  @media (max-width: 640px) {
+    .desktop {
+      display: none;
+    }
+  
+    .mobile {
+      display: block;
+    }
+  
+  }
+  
+ 

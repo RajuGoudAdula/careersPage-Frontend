@@ -1,0 +1,668 @@
+/* JobDetails.module.css */
+
+.pageContainer {
+  min-height: 100vh;
+  background: #f5f5f7;
+}
+
+/* Hero Section */
+.hero {
+  width: 100%;
+  min-height: 70vh;
+  background: linear-gradient(135deg, #f5f5f7 0%, #e8e8ed 100%);
+  position: relative;
+  padding: 40px 20px 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 1.2s ease;
+}
+
+.heroContent {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 30px;
+  animation: floatUp 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.companyInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.logoContainer {
+  width: 250px;
+  height: 120px;
+  border-radius: 24px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(0, 113, 227, 0.1);
+  border: 1px solid rgba(0, 113, 227, 0.1);
+  overflow: hidden;
+}
+
+.companyLogo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.jobHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.jobTitle {
+  font-size: 3.2rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #111;
+  letter-spacing: -1px;
+  margin: 0;
+}
+
+.companyName {
+  font-size: 1.25rem;
+  color: #555;
+  font-weight: 500;
+}
+
+.jobMeta {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  font-size: 1rem;
+  color: #444;
+  font-weight: 500;
+  border: 1px solid rgba(0, 113, 227, 0.1);
+  transition: all 0.3s ease;
+}
+
+.metaItem:hover {
+  background: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 113, 227, 0.1);
+}
+
+.jobTypeBadge {
+  background: rgba(0, 113, 227, 0.1);
+  color: #0071e3;
+  border-color: rgba(0, 113, 227, 0.2);
+}
+
+.metaIcon {
+  width: 20px;
+  height: 20px;
+  color: #0071e3;
+}
+
+.jobTypeIcon {
+  width: 20px;
+  height: 20px;
+  color: currentColor;
+}
+
+/* Buttons */
+.primaryButton, .applyButton {
+  padding: 14px 32px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  background: #0071e3;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.primaryButton:hover, .applyButton:hover {
+  background: #005bbd;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 113, 227, 0.25);
+}
+
+.buttonIcon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Wave Divider */
+.waveDivider {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  color: #f5f5f7;
+}
+
+.waveDivider svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Main Content */
+.mainContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 40px;
+  align-items: start;
+}
+
+/* Description Section */
+.descriptionSection {
+  background: white;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.sectionHeader {
+  margin-bottom: 32px;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 16px 0;
+}
+
+.sectionDivider {
+  height: 3px;
+  background: linear-gradient(90deg, #0071e3 0%, rgba(0, 113, 227, 0.2) 100%);
+  border-radius: 3px;
+}
+
+.descriptionContent {
+  color: #444;
+  line-height: 1.7;
+}
+
+.descriptionText {
+  font-size: 1.1rem;
+  margin-bottom: 32px;
+  color: #333;
+}
+
+/* Requirements Section */
+.requirementsSection {
+  margin-top: 32px;
+}
+
+.subsectionTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 20px;
+}
+
+.requirementsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.requirementItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 1.05rem;
+  color: #444;
+}
+
+.bulletIcon {
+  width: 20px;
+  height: 20px;
+  color: #0071e3;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Overview Section */
+.overviewSection {
+  position: sticky;
+  top: 40px;
+}
+
+.overviewCard {
+  background: white;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.overviewTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 28px 0;
+}
+
+.overviewDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.overviewItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.overviewLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  color: #555;
+  font-weight: 500;
+}
+
+.overviewIcon {
+  width: 20px;
+  height: 20px;
+  color: #0071e3;
+}
+
+.overviewValue {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.salaryAmount {
+  color: #0071e3;
+  font-size: 1.2rem;
+}
+
+.jobTypeTag {
+  background: rgba(0, 113, 227, 0.1);
+  color: #0071e3;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: 1px solid rgba(0, 113, 227, 0.2);
+}
+
+/* Apply Button in Overview */
+.applyButton {
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.overviewFooter {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding-top: 20px;
+}
+
+.postedDate {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: #777;
+  font-weight: 500;
+}
+
+.footerIcon {
+  width: 18px;
+  height: 18px;
+  color: #777;
+}
+
+/* Error Container */
+.errorContainer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+  background: #f5f5f7;
+  animation: fadeIn 1.2s ease;
+}
+
+.errorContainer h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 16px;
+}
+
+.errorContainer p {
+  font-size: 1.1rem;
+  color: #555;
+  max-width: 500px;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.backButton {
+  padding: 12px 26px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  background: transparent;
+  color: #0071e3;
+  border: 2px solid #0071e3;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.backButton:hover {
+  background: #0071e3;
+  color: white;
+  transform: translateY(-3px);
+}
+
+/* Skeleton Loading States */
+.skeletonHero {
+  width: 100%;
+  min-height: 70vh;
+  background: #f5f5f7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px 100px;
+  gap: 30px;
+}
+
+.skeletonCompanyLogo {
+  width: 120px;
+  height: 120px;
+  border-radius: 24px;
+  background: linear-gradient(90deg, #e8e8ed 25%, #f0f0f5 50%, #e8e8ed 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeletonTitle {
+  width: 400px;
+  height: 48px;
+  background: linear-gradient(90deg, #e8e8ed 25%, #f0f0f5 50%, #e8e8ed 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 12px;
+}
+
+.skeletonMetaContainer {
+  display: flex;
+  gap: 20px;
+}
+
+.skeletonMeta {
+  width: 120px;
+  height: 42px;
+  background: linear-gradient(90deg, #e8e8ed 25%, #f0f0f5 50%, #e8e8ed 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 12px;
+}
+
+.skeletonButton {
+  width: 160px;
+  height: 52px;
+  background: linear-gradient(90deg, #e8e8ed 25%, #f0f0f5 50%, #e8e8ed 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 12px;
+}
+
+.skeletonMain {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+.skeletonGrid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 40px;
+}
+
+.skeletonDescription {
+  background: white;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.skeletonHeading {
+  width: 200px;
+  height: 32px;
+  background: linear-gradient(90deg, #e8e8ed 25%, #f0f0f5 50%, #e8e8ed 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+.skeletonDivider {
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #e8e8ed 25%, #f0f0f5 50%, #e8e8ed 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 3px;
+}
+
+.skeletonText {
+  width: 100%;
+  height: 20px;
+  background: linear-gradient(90deg, #e8e8ed 25%, #f0f0f5 50%, #e8e8ed 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+}
+
+.skeletonTextShort {
+  width: 70%;
+  height: 20px;
+  background: linear-gradient(90deg, #e8e8ed 25%, #f0f0f5 50%, #e8e8ed 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+}
+
+.skeletonOverview {
+  background: white;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.skeletonOverviewRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.skeletonLabel {
+  width: 100px;
+  height: 20px;
+  background: linear-gradient(90deg, #e8e8ed 25%, #f0f0f5 50%, #e8e8ed 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+}
+
+.skeletonValue {
+  width: 80px;
+  height: 20px;
+  background: linear-gradient(90deg, #e8e8ed 25%, #f0f0f5 50%, #e8e8ed 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes floatUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .overviewSection {
+    position: static;
+  }
+  
+  .skeletonGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 60vh;
+    padding: 30px 20px 80px;
+  }
+  
+  .jobTitle {
+    font-size: 2.5rem;
+  }
+  
+  .contentGrid {
+    gap: 24px;
+  }
+  
+  .descriptionSection,
+  .overviewCard,
+  .skeletonDescription,
+  .skeletonOverview {
+    padding: 24px;
+  }
+  
+  .sectionTitle {
+    font-size: 1.75rem;
+  }
+  
+  .overviewTitle {
+    font-size: 1.5rem;
+  }
+  
+  .jobMeta {
+    gap: 12px;
+  }
+  
+  .metaItem {
+    padding: 8px 16px;
+    font-size: 0.95rem;
+  }
+  
+  .logoContainer {
+    width: 200px;
+    height: 100px;
+    border-radius: 15px;
+  }
+  
+  .skeletonTitle {
+    width: 300px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .jobTitle {
+    font-size: 2rem;
+  }
+  
+  .companyName {
+    font-size: 1.1rem;
+  }
+  
+  .primaryButton,
+  .applyButton,
+  .backButton {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+  
+  .descriptionText {
+    font-size: 1rem;
+  }
+  
+  .requirementItem {
+    font-size: 1rem;
+  }
+  
+  .jobMeta {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .skeletonTitle {
+    width: 250px;
+    height: 36px;
+  }
+  
+  .skeletonMetaContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+}

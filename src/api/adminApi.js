@@ -35,6 +35,9 @@ const adminApi = {
     },
     deleteJob : async (id,jobId) => {
         return axiosInstance.delete(`/jobs/${jobId}/company/${id}`);
+    },
+    sendURLtoAi : async (websiteUrl) => {
+        return axiosInstance.post(`/company/autofill`,{websiteUrl});
     }
 }
 

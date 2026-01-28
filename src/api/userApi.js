@@ -29,7 +29,6 @@ const userApi = {
         return  axios.delete(`${BaseURL}/alert/delete-userAlert/${alertId}`);
     },
     getUserAlert : async (alertId) => {
-        console.log(alertId);
         return axios.get(`${BaseURL}/alert/get-userAlert/${alertId}`);
     },
     submitContactForm : async (form) => {
@@ -46,7 +45,10 @@ const userApi = {
             limit
           }
         });
-      },      
+      },    
+    getJobDetails : async (jobId) => {
+        return axios.get(`${BaseURL}/jobs/job/${jobId}`);
+    },  
 
 }
 

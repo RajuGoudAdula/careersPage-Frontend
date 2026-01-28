@@ -14,7 +14,7 @@ export default function Search() {
   }
 
   if (mode === "title") {
-    return <SearchByTitle query={query} />;
+    return <SearchByTitle />;
   }
 
   if (mode === "company") {

@@ -11,6 +11,8 @@ import Footer from "./components/Footer";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import TermsAndConditions from "./components/TermsAndConditions";
 import "./App.css";
+import { getAlertId } from "./utils/user";
+import JobDetails from "./components/JobDetails";
 
 export default function App() {
   const [alertOpen, setAlertOpen] = useState(false);
@@ -25,7 +27,9 @@ export default function App() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setAlertOpen(true);
+      if(!getAlertId()){
+        setAlertOpen(true);
+      }
     }, 10000);
 
     return () => clearTimeout(timer);
@@ -60,6 +64,7 @@ export default function App() {
             </PrivateRoute>
           }
         />
+        <Route path="/jobs/:jobId" element={<JobDetails />} />
         <Route path="privacy-policy" element={<PrivacyPolicy />} />
         <Route path="terms-and-conditions" element={<TermsAndConditions />} />
       </Routes>
