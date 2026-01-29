@@ -223,7 +223,7 @@ const JobAlertForm = forwardRef(function JobAlertForm(
       setEmailEditable(true);
       setIsDirty(false);
     });
-  }, []);
+  }, [alertId]);
 
 
   /* ---------------- HANDLERS ---------------- */
@@ -346,7 +346,15 @@ const JobAlertForm = forwardRef(function JobAlertForm(
     try {
       setVerifyingOtp(true);
       const res = await api.verifyOtp({ email: form.email, otp });
-      setVerificationToken(res.data.verificationToken);
+      
+      if (res?.data?.alertId) {
+        localStorage.setItem("alert_id", res.data.alertId);
+        setAlertId(res.data.alertId);
+        showToast(res?.data?.message);
+        setIsUpdate(true);
+      }
+
+      setVerificationToken(res?.data?.verificationToken);
       setVerified(true);
       setOtpSent(false);
       showToast("Email verified", "success");
@@ -429,26 +437,39 @@ const JobAlertForm = forwardRef(function JobAlertForm(
     setDeleting(true);
     try {
       await api.deleteAlert(alertId);
-
-      setForm(EMPTY_FORM);
-      setInitialForm(EMPTY_FORM);
-      setIsUpdate(false);
-      setIsDirty(false);
-      setVerified(false);
-      setEmailEditable(false);
-      setOtp("");
-      setOtpSent(false);
-      setVerificationToken("");
-      localStorage.removeItem("alert_id");
-      setAlertId(null);
-
+      cleanupAfterDelete();
       showToast("Deleted successfully", "success");
-    } catch {
+    } catch(err) {
+      const status = err?.response?.status;
+
+      // 🧹 Alert already deleted on server
+      if (status === 404) {
+        cleanupAfterDelete();
+        showToast(err?.response?.data?.message, "info");
+      } else {
+        showToast("Failed to delete alert", "error");
+      }
       showToast("Failed to delete alert", "error");
     } finally {
       setDeleting(false);
     }
   };
+
+  const cleanupAfterDelete = () => {
+    setForm(EMPTY_FORM);
+    setInitialForm(EMPTY_FORM);
+    setIsUpdate(false);
+    setIsDirty(false);
+    setVerified(false);
+    setEmailEditable(false);
+    setOtp("");
+    setOtpSent(false);
+    setVerificationToken("");
+  
+    localStorage.removeItem("alert_id");
+    setAlertId(null);
+  };
+  
 
   /* ---------------- EXPOSE CHILD API ---------------- */
 
