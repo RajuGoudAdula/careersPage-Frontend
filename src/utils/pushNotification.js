@@ -1,4 +1,5 @@
-const VAPID_PUBLIC_KEY = "BDKAw_zvYvX9TdRiaQf6UkK19bP3gbCKRK96-Zz-Cbf55jr95y3SpP-cmEWuic0e7DI6d0fh030q89HQBZIPqUc";
+// ✅ Load from env
+const VAPID_PUBLIC_KEY = import.meta.env.VITE_VAPID_PUBLIC_KEY;
 
 function urlBase64ToUint8Array(base64String) {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
@@ -10,6 +11,14 @@ function urlBase64ToUint8Array(base64String) {
 }
 
 export async function createPushSubscription() {
+  if (!("serviceWorker" in navigator)) {
+    throw new Error("Service Worker not supported");
+  }
+
+  if (!VAPID_PUBLIC_KEY) {
+    throw new Error("VAPID public key missing");
+  }
+
   const registration = await navigator.serviceWorker.ready;
 
   return await registration.pushManager.subscribe({

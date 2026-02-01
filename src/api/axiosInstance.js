@@ -1,14 +1,13 @@
 // File: src/api/axiosInstance.js
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:5000/api'; // ✅ Add your backend base URL
-const BACKEND_URL = 'https://careerspage-backend.onrender.com/api';
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 const getToken = () => localStorage.getItem('adminToken');
 
 // ✅ Create Axios Instance
 const axiosInstance = axios.create({
-  baseURL: BACKEND_URL,
+  baseURL: BASE_URL,
   headers: { 'Content-Type': 'application/json' },
   timeout: 15000, // 15s timeout
 });

@@ -1,15 +1,13 @@
 import axios from "axios";
 import { createPushSubscription } from "./pushNotification";
 
-
-const BaseURL = 'http://localhost:5000/api';
-const BACKEND_URL = 'https://careerspage-backend.onrender.com/api';
+// ✅ Backend URL from env (works in local + Netlify)
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 /**
  * Requests browser notification permission and subscribes the user.
- * Shows toasts for feedback instead of console logs.
  */
-export async function requestBrowserPermission(alertId,showToast) {
+export async function requestBrowserPermission(alertId, showToast) {
   // 1️⃣ Check browser support
   if (!("Notification" in window)) {
     showToast("Browser notifications are not supported in this browser.", "error");
@@ -18,18 +16,24 @@ export async function requestBrowserPermission(alertId,showToast) {
 
   // 2️⃣ If already blocked
   if (Notification.permission === "denied") {
-    showToast("You have blocked notifications. Enable them in browser settings to receive alerts.", "warning");
+    showToast(
+      "You have blocked notifications. Enable them in browser settings to receive alerts.",
+      "warning"
+    );
     return;
   }
 
-  // 3️⃣ Ask permission if not already granted
+  // 3️⃣ Request permission if needed
   let permission = Notification.permission;
   if (permission !== "granted") {
     permission = await Notification.requestPermission();
   }
 
   if (permission !== "granted") {
-    showToast("Notification permission not granted. You won’t receive job alerts in browser.", "info");
+    showToast(
+      "Notification permission not granted. You won’t receive job alerts in browser.",
+      "info"
+    );
     return;
   }
 
@@ -43,7 +47,7 @@ export async function requestBrowserPermission(alertId,showToast) {
       subscription,
     });
 
-    // 6️⃣ Optional confirmation notification
+    // 6️⃣ Confirmation notification
     new Notification("Job alerts enabled 🎉", {
       body: "You’ll be notified when matching jobs are posted",
     });

@@ -1,7 +1,6 @@
 import axios from "axios";
 
-// const BaseURL = 'http://localhost:5000/api';
-const BaseURL = 'https://careerspage-backend.onrender.com/api';
+const BaseURL = import.meta.env.VITE_BACKEND_URL;
 
 const userApi = {
     getCompaniesForUser : async (page) => {
