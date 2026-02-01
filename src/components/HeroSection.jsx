@@ -22,8 +22,7 @@ export default function HeroSection({scrollToJobs}) {
 
 
         <p className={styles.subtitle}>
-          With <strong>careerspage</strong>, apply once, reach real company career pages — 
-          and get notified instantly.
+          With <strong>careerspage</strong>, apply once, reach real company career pages and get notified instantly.
         </p>
 
         <JobSearchInput />
