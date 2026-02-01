@@ -42,15 +42,12 @@ export async function requestBrowserPermission(alertId, showToast) {
     const subscription = await createPushSubscription();
 
     // 5️⃣ Send subscription to backend
-    await axios.post(`${BACKEND_URL}/alert/browser-notification`, {
+    const res = await axios.post(`${BACKEND_URL}/alert/browser-notification`, {
       alertId,
       subscription,
     });
 
-    // 6️⃣ Confirmation notification
-    new Notification("Job alerts enabled 🎉", {
-      body: "You’ll be notified when matching jobs are posted",
-    });
+    console.log(res?.data?.message);
 
     showToast("Browser notifications enabled successfully!", "success");
   } catch (err) {
