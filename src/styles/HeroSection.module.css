@@ -20,11 +20,12 @@
   /* TITLE */
   .title {
     font-size: 3.2rem;
-    font-weight: 800;
+    font-weight: 1000;
     line-height: 1.1;
     color: #111;
     margin-bottom: 18px;
     letter-spacing: -1px;
+    font-family: sans-serif;
   }
   
   .highlight {
