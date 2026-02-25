@@ -47,7 +47,43 @@ const userApi = {
       },    
     getJobDetails : async (jobId) => {
         return axios.get(`${BaseURL}/jobs/job/${jobId}`);
-    },  
+    }, 
+    
+    getLatestJobs : async () => {
+        return axios.get(`${BaseURL}/jobs/latest`);
+    },
+    getJobs : async ({ 
+        category = "", 
+        search = "", 
+        experience = "", 
+        location = "", 
+        qualification = "", 
+        state = "", 
+        page = 1, 
+        limit = 20 
+      }) => {
+        const params = {
+          category,
+          search,
+          experience,
+          location,
+          qualification,
+          state,
+          page,
+          limit
+        };
+      
+        return axios.get(`${BaseURL}/jobs/job/search-jobs`, { params });
+      },
+
+      getJobSuggestions : async ({
+        category = "",
+        query = "",   // renamed from search
+        limit = 10
+      }) => {
+        const params = { category, search: query, limit };
+        return axios.get(`${BaseURL}/jobs/job/job-suggestions`, { params });
+      },
 
 }
 

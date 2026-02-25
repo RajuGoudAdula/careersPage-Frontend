@@ -111,7 +111,7 @@ export default function SearchByCompany({ query}) {
           <div className={styles.companyMeta}>
             <h1>{company.companyName}</h1>
             <p className={styles.subtitle}>
-              {company.industry} <span className={styles.dot}>•</span> <br />
+              {company.industry} <span className={styles.dot}>•</span> <br className={styles.break}/>
               {company.companySize}
             </p>
 

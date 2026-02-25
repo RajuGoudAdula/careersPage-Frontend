@@ -8,11 +8,14 @@ export default function JobAlertModal({
   isDirty,
   saving,
   onSubmit,
+  alertType, // 👈 new prop
   children,
 }) {
   if (!isOpen) return null;
-
+ 
   const disableSubmit = saving || (isUpdate && !isDirty);
+
+  const typeLabel = alertType === "government" ? "Government" : "IT";
 
   return (
     <div className={styles.overlay} onClick={onClose}>
@@ -25,18 +28,16 @@ export default function JobAlertModal({
           <h2>
             {isUpdate
               ? isDirty
-                ? "Update Job Alert"
-                : "Job Alert"
-              : "Create Job Alert"}
+                ? `Update Job Alert`
+                : `Job Alert`
+              : `Create Job Alert`}
           </h2>
         </div>
 
         <div className={styles.divider} />
 
         {/* BODY */}
-        <div className={styles.body}>
-          {children}
-        </div>
+        <div className={styles.body}>{children}</div>
 
         {/* FOOTER */}
         <div className={styles.footer}>
@@ -44,7 +45,7 @@ export default function JobAlertModal({
             type="button"
             className={styles.cancelBtn}
             onClick={onClose}
-            disabled={saving} // ✅ prevent close while saving
+            disabled={saving}
           >
             Cancel
           </button>

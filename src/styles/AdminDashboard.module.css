@@ -1,0 +1,286 @@
+/* ================= ROOT ================= */
+
+.dashboard {
+  padding: 32px;
+  background: #f4f6f9;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+  color: #111827;
+}
+
+/* ================= HEADER ================= */
+
+.dashboardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.dashboardTitle {
+  font-size: 26px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.dashboardSubtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: 6px;
+}
+
+/* ================= HEADER ACTIONS ================= */
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.timeFilter {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.timeFilter:focus,
+.timeFilter:hover {
+  border-color: #1e63e9;
+}
+
+.exportBtn,
+.refreshBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+.exportBtn:hover,
+.refreshBtn:hover {
+  border-color: #1e63e9;
+  background: #f0f5ff;
+}
+
+/* ================= MAIN ================= */
+
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* ================= GRID ================= */
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+/* ================= STAT CARD ================= */
+
+.statCard {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: 0.25s ease;
+}
+
+.statCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(30, 99, 233, 0.08);
+  border-color: #1e63e9;
+}
+
+.statIconWrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.statIcon {
+  font-size: 22px;
+}
+
+.statContent {
+  flex: 1;
+}
+
+.statHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.statLabel {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.statNumber {
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+/* ================= TREND BADGE ================= */
+
+.trendBadge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.trendUp {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+}
+
+.trendDown {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+/* ================= QUICK ACTIONS ================= */
+
+.quickActionsSection {
+  margin-top: 10px;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.actionsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+/* ================= QUICK ACTION BUTTON ================= */
+
+.quickActionBtn {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: 0.25s ease;
+  text-align: left;
+}
+
+.quickActionBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(30, 99, 233, 0.08);
+  border-color: #1e63e9;
+  background: #f9fbff;
+}
+
+.quickActionIconWrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quickActionIcon {
+  font-size: 20px;
+}
+
+.quickActionContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.quickActionLabel {
+  font-weight: 500;
+  font-size: 15px;
+  color: #111827;
+}
+
+.quickActionDesc {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 3px;
+}
+
+.quickActionArrow {
+  font-size: 16px;
+  color: #9ca3af;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1024px) {
+  .dashboard {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cardGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .actionsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboardTitle {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard {
+    padding: 18px;
+  }
+
+  .statCard {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .statNumber {
+    font-size: 20px;
+  }
+}

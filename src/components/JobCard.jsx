@@ -1,8 +1,76 @@
 import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
+import { Link } from "react-router-dom";
 
-export default function JobCard({ job, favicon, onClick, expanded }) {
+export default function JobCard({ job, favicon, onClick, expanded=true }) {
   const [showShare, setShowShare] = useState(false);
+  console.log(job);
+  const locationText = job.location
+  ? [job.location.city, job.location.state]
+      .filter(Boolean)
+      .join(", ")
+  : "All India";
+
+  const today = new Date();
+  const endDate = new Date(job?.applicationEndDate);
+  
+
+  const formattedDate = endDate.toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+
+
+  const formatTimeAgo = (dateString) => {
+    if (!dateString) return "";
+
+    const now = new Date();
+    const past = new Date(dateString);
+    const diffInSeconds = Math.floor((now - past) / 1000);
+
+    if (diffInSeconds < 60) return "just now";
+
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    if (diffInMinutes < 60)
+      return diffInMinutes === 1
+        ? "1 minute ago"
+        : `${diffInMinutes} minutes ago`;
+
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    if (diffInHours < 24)
+      return diffInHours === 1
+        ? "1 hour ago"
+        : `${diffInHours} hours ago`;
+
+    const diffInDays = Math.floor(diffInHours / 24);
+    if (diffInDays < 7)
+      return diffInDays === 1
+        ? "1 day ago"
+        : `${diffInDays} days ago`;
+
+    const diffInWeeks = Math.floor(diffInDays / 7);
+    if (diffInWeeks < 4)
+      return diffInWeeks === 1
+        ? "1 week ago"
+        : `${diffInWeeks} weeks ago`;
+
+    const diffInMonths = Math.floor(diffInDays / 30);
+    if (diffInMonths < 12)
+      return diffInMonths === 1
+        ? "1 month ago"
+        : `${diffInMonths} months ago`;
+
+    const diffInYears = Math.floor(diffInDays / 365);
+    return diffInYears === 1
+      ? "1 year ago"
+      : `${diffInYears} years ago`;
+  };
+
+  const diffTime = endDate - today;
+  const daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  const isExpired = diffTime < 0;
 
   const handleShare = () => {
     const { origin} = window.location;
@@ -12,9 +80,9 @@ export default function JobCard({ job, favicon, onClick, expanded }) {
     if (navigator.share) {
       navigator
         .share({
-          title: `${job?.title} – ${job?.company?.companyName}`,
-          text: `We’re hiring for the role of ${job?.title} at ${job?.company?.companyName}.
-    Location: ${job?.location}
+          title: `${job?.title} – ${job?.organization?.name}`,
+          text: `We’re hiring for the role of ${job?.title} at ${job?.organization?.name}.
+    Location: ${locationText}
     Apply now or share with someone who might be a great fit.`,
           url: shareUrl,
         })
@@ -56,7 +124,7 @@ export default function JobCard({ job, favicon, onClick, expanded }) {
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
           >
-            <img src={favicon} alt="Company logo" className={styles.favicon} />
+            <img src={job?.organization?.favicon} alt="Company logo" className={styles.favicon} />
           </a>
         </div>
       )}
@@ -65,12 +133,12 @@ export default function JobCard({ job, favicon, onClick, expanded }) {
         {expanded && (
           <h3 className={styles.companyName}>
             <a
-              href={job?.company?.website}
+              href={job?.organization?.website}
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
             >
-              {job?.company?.companyName}
+              {job?.organization?.name}
             </a>
 
             <button
@@ -93,32 +161,82 @@ export default function JobCard({ job, favicon, onClick, expanded }) {
         <div className={styles.meta}>
           <span className={styles.metaItem}>
             <svg className={styles.icon} height="20px" viewBox="0 -960 960 960" width="20px" fill="#434343"><path d="M480.21-480Q510-480 531-501.21t21-51Q552-582 530.79-603t-51-21Q450-624 429-602.79t-21 51Q408-522 429.21-501t51 21ZM480-191q119-107 179.5-197T720-549q0-105-68.5-174T480-792q-103 0-171.5 69T240-549q0 71 60.5 161T480-191Zm0 95Q323.03-227.11 245.51-339.55 168-452 168-549q0-134 89-224.5T479.5-864q133.5 0 223 90.5T792-549q0 97-77 209T480-96Zm0-456Z"/></svg>
-            {job.location}
+            {locationText}
           </span>
+          {job?.organization?.category === "it" ? 
+          <>
+            <span className={styles.metaItem}>
+              <svg className={styles.icon} height="20px" viewBox="0 -960 960 960" width="20px" fill="#434343"><path d="m614-310 51-51-149-149v-210h-72v240l170 170ZM480-96q-79.38 0-149.19-30T208.5-208.5Q156-261 126-330.96t-30-149.5Q96-560 126-630q30-70 82.5-122t122.46-82q69.96-30 149.5-30t149.55 30.24q70 30.24 121.79 82.08 51.78 51.84 81.99 121.92Q864-559.68 864-480q0 79.38-30 149.19T752-208.5Q700-156 629.87-126T480-96Zm0-384Zm.48 312q129.47 0 220.5-91.5Q792-351 792-480.48q0-129.47-91.02-220.5Q609.95-792 480.48-792 351-792 259.5-700.98 168-609.95 168-480.48 168-351 259.5-259.5T480.48-168Z"/></svg>
+              {job.experienceText} {job.experienceText <= 1 ? "year" : "years"}
+            </span>
 
-          <span className={styles.metaItem}>
-            <svg className={styles.icon} height="20px" viewBox="0 -960 960 960" width="20px" fill="#434343"><path d="m614-310 51-51-149-149v-210h-72v240l170 170ZM480-96q-79.38 0-149.19-30T208.5-208.5Q156-261 126-330.96t-30-149.5Q96-560 126-630q30-70 82.5-122t122.46-82q69.96-30 149.5-30t149.55 30.24q70 30.24 121.79 82.08 51.78 51.84 81.99 121.92Q864-559.68 864-480q0 79.38-30 149.19T752-208.5Q700-156 629.87-126T480-96Zm0-384Zm.48 312q129.47 0 220.5-91.5Q792-351 792-480.48q0-129.47-91.02-220.5Q609.95-792 480.48-792 351-792 259.5-700.98 168-609.95 168-480.48 168-351 259.5-259.5T480.48-168Z"/></svg>
-            {job.experience} {job.experience <= 1 ? "year" : "years"}
-          </span>
+            <span className={styles.metaItem}>
+              {getJobTypeIcon(job.employmentType)}
+              {job.employmentType}
+            </span>
+          </> : <>
+            <span className={styles.metaItem}>
+              <svg className={styles.icon} xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#615E5E"><path d="M480-144 216-276v-240L48-600l432-216 432 216v312h-72v-276l-96 48v240L480-144Zm0-321 271-135-271-135-271 135 271 135Zm0 240 192-96v-159l-192 96-192-96v159l192 96Zm0-240Zm0 81Zm0 0Z"/></svg>
+              {job.qualificationText}
+            </span>
 
-          <span className={styles.metaItem}>
-            {getJobTypeIcon(job.jobType)}
-            {job.jobType}
-          </span>
+            <span
+              className={`${styles.metaItem} ${
+                isExpired
+                  ? styles.expired
+                  : daysLeft <= 2
+                  ? styles.urgent
+                  : daysLeft <= 7
+                  ? styles.warning
+                  : styles.active
+              }`}
+            >
+              {isExpired
+                ? "Expired"
+                : `Last Date: ${formattedDate} (${daysLeft} day${
+                    daysLeft !== 1 ? "s" : ""
+                  } left)`}
+            </span>
+
+          </>
+        }
         </div>
 
         <div className={styles.footer}>
-          <span className={styles.posted}>
-            Posted {job?.postedOn}
-          </span>
+          {job?.organization?.category === "it" ? <>
+            <span className={styles.posted}>
+            Posted {formatTimeAgo(job?.postedDate)}
+            </span>
+          </>: 
+          <>
+            <span
+                className={styles.posted}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+              <svg className={styles.icon} xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#0071e3"><path d="M340-460h280v-64H340v64Zm0 120h280v-64H340v64Zm0 120h174v-64H340v64ZM263.72-96Q234-96 213-117.15T192-168v-624q0-29.7 21.15-50.85Q234.3-864 264-864h312l192 192v504q0 29.7-21.16 50.85Q725.68-96 695.96-96H263.72ZM528-624v-168H264v624h432v-456H528ZM264-792v168-168 624-624Z"/></svg>
+              <a
+                href={job?.notificationPDF}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.pdfLink}
+              >
+                View Notification
+              </a>
+            </span>
+          </>
+          }
 
-          <a
-            href={`/jobs/${job._id}`} // internal route
+          <Link
+            to={`/jobs/${job._id}`}
             className={styles.apply}
             onClick={(e) => e.stopPropagation()}
           >
             View Job →
-          </a>
+          </Link>
         </div>
       </div>
 

@@ -8,36 +8,40 @@ const adminApi = {
     logOut :async () =>  {
         return axiosInstance.post('/admin/logout',{});
     },
-    getCompanies : async () => {
-        return axiosInstance.get('/company')
+    getOrganizations : async () => {
+        return axiosInstance.get('/organization')
     },
-    addCompany :async (form) => {
+    addOrganization :async (form) => {
         console.log(form);
-        return axiosInstance.post('/company/create',form);
+        return axiosInstance.post('/organization/create',form);
     },
-    updateCompany :async (id,form) => {
-        return axiosInstance.put(`/company/${id}`,form);
+    updateOrganization :async (id,form) => {
+        return axiosInstance.put(`/organization/${id}`,form);
     },
-    deleteCompany :async (id) => {
-        return axiosInstance.delete(`/company/${id}`);
+    deleteOrganization :async (id) => {
+        return axiosInstance.delete(`/organization/${id}`);
     },
-    getCompanyDetails : async (id) =>{
-        return axiosInstance.get(`/company/${id}`);
+    getOrganizationDetails : async (id) =>{
+        return axiosInstance.get(`/organization/${id}`);
     },
-    fetchCompanyJobs : async (id,pg) => {
-        return axiosInstance.get(`/company/${id}/jobs?page=${pg}`)
+    fetchOrganizationJobs : async (id,pg) => {
+        return axiosInstance.get(`/organization/${id}/jobs?page=${pg}`)
     },
-    postJobOfCompany : async (companyId,form) => {
-        return axiosInstance.post(`/jobs/${companyId}/newJob`,form);
+    postJobOfOrganization : async (organizationId,form) => {
+        console.log(organizationId,form);
+        return axiosInstance.post(`/jobs/${organizationId}/newJob`,form);
     },
-    editJobOfCompany : async (companyId,jobId,form) => {
-        return axiosInstance.put(`/jobs/${companyId}/${jobId}`,form);
+    editJobOfOrganization : async (organizationId,jobId,form) => {
+        return axiosInstance.put(`/jobs/${organizationId}/${jobId}`,form);
     },
     deleteJob : async (id,jobId) => {
-        return axiosInstance.delete(`/jobs/${jobId}/company/${id}`);
+        return axiosInstance.delete(`/jobs/${jobId}/organization/${id}`);
+    },
+    getJobs: async (params = {}) => {
+        return axiosInstance.get("/jobs", { params });
     },
     sendURLtoAi : async (websiteUrl) => {
-        return axiosInstance.post(`/company/autofill`,{websiteUrl});
+        return axiosInstance.post(`/organization/autofill`,{websiteUrl});
     }
 }
 

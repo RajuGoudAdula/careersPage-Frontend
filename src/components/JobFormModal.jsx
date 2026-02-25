@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "../styles/CompanyFormModal.module.css"; // 👈 same CSS as company modal
+import styles from "../styles/OrganizationFormModal.module.css"; // 👈 same CSS as company modal
 import api from "../api/adminApi";
 
 export default function JobFormModal({ close, companyId, fetchJobs, editJob }) {

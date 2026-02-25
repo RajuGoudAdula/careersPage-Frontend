@@ -25,6 +25,7 @@ export default function App() {
     jobAlertFormRef.current?.submit();
   };
 
+
   useEffect(() => {
     const timer = setTimeout(() => {
       if(!getAlertId()){
@@ -45,6 +46,7 @@ export default function App() {
         isUpdate={jobAlertFormRef.current?.isUpdate}
         isDirty={jobAlertFormRef.current?.isDirty}
         saving={jobAlertFormRef.current?.saving}
+        alertType = {jobAlertFormRef.current?.alertType}
         onSubmit={handleSubmit}
       >
         <JobAlertForm
@@ -54,7 +56,7 @@ export default function App() {
       </JobAlertModal>
 
       <Routes>
-        <Route path="/*" element={<UserRoutes />} />
+        <Route path="/*" element={<UserRoutes onNotifyClick={() => setAlertOpen(true)} />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route
           path="/admin/*"

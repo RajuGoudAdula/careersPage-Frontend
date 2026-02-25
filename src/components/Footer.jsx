@@ -18,7 +18,8 @@ export default function Footer({onNotifyClick}) {
         <Link to={isAdmin ? "/admin/dashboard" : "/"} >
             <div className={styles.logo}>Careers<span>Page</span></div>
         </Link>
-          <p>Apply once, reach real company career pages and get notified instantly.</p>
+          <p>Official Government & IT Jobs.<br/>
+            All in One Place</p>
         </div>
 
         <div className={styles.section}>

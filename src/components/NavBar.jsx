@@ -45,7 +45,7 @@ export default function NavBar({onNotifyClick}) {
         {isAdmin && (
           <>
             <li><Link to="/admin/dashboard">Dashboard</Link></li>
-            <li><Link to="/admin/companies">Companies</Link></li>
+            <li><Link to="/admin/organizations">Organizations</Link></li>
             <li><Link to="/admin/jobs">Jobs</Link></li>
             <li>
               <button

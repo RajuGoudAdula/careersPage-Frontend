@@ -14,6 +14,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  font-size: 15px;
 }
 
 /* ----------------------------------------
@@ -143,7 +144,7 @@
 .companyName {
   margin-bottom: 5px;
   margin-left: 5px;
-  font-size: larger;
+  font-size: 15px;
   font-weight: 900;
   display: flex;
   flex-direction: row;
@@ -196,7 +197,7 @@
   display: flex;
   flex-direction: row;
   margin-top: 10px;
-  max-width: 310px;
+  max-width: 345px;
 }
 
 .jobCard:active {
@@ -213,6 +214,7 @@
   width:-webkit-fill-available;
   height: -webkit-fill-available;
   border-radius: 10px;
+  font-size: 10px;
 }
 
 
@@ -235,7 +237,6 @@
 .icon {
   width: 14px;
   height: 14px;
-  fill: currentColor;
   opacity: 0.9;
 }
 
@@ -412,4 +413,24 @@
 
 a{
   color: #0071e3;
+}
+
+.active {
+  color: #1e7e34; /* green */
+  font-weight: 500;
+}
+
+.warning {
+  color: #b8860b; /* yellow */
+  font-weight: 600;
+}
+
+.urgent {
+  color: #c82333; /* red */
+  font-weight: 700;
+}
+
+.expired {
+  color: #6c757d; /* grey */
+  font-weight: 600;
 }

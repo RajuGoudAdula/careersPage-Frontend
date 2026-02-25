@@ -40,6 +40,57 @@ const ROLES = [
   { label: "Blockchain Developer", value: "blockchain-developer", type: "role" },
 ];
 
+
+export const GOV_OPTIONS = [
+  {
+    type: "central",
+    label: "Central Government",
+    items: [
+      { label: "SSC (CGL, CHSL, MTS)", value: "ssc", type: "central" },
+      { label: "UPSC (Civil Services)", value: "upsc", type: "central" },
+      { label: "Railway Recruitment Board (RRB)", value: "rrb", type: "central" },
+      { label: "Banking (IBPS, SBI)", value: "banking", type: "central" },
+      { label: "Defense (Army, Navy, Air Force)", value: "defense", type: "central" },
+      { label: "Income Tax / CBDT", value: "income-tax", type: "central" },
+      { label: "Central PSU Jobs", value: "psu-central", type: "central" },
+    ],
+  },
+
+  {
+    type: "state",
+    label: "State Government",
+    items: [
+      { label: "State PSC (APPSC, TSPSC, etc.)", value: "state-psc", type: "state" },
+      { label: "State Police", value: "state-police", type: "state" },
+      { label: "State High Court", value: "state-highcourt", type: "state" },
+      { label: "State Teaching (DSC, TRT)", value: "state-teaching", type: "state" },
+      { label: "State Group 1 / 2 / 3 / 4", value: "state-groups", type: "state" },
+      { label: "Municipal / Panchayat Jobs", value: "state-municipal", type: "state" },
+    ],
+  },
+
+  {
+    type: "education",
+    label: "Education & Universities",
+    items: [
+      { label: "UGC / NET", value: "ugc-net", type: "education" },
+      { label: "Central Universities", value: "central-university", type: "education" },
+      { label: "State Universities", value: "state-university", type: "education" },
+      { label: "Navodaya / Kendriya Vidyalaya", value: "kvs-nvs", type: "education" },
+    ],
+  },
+
+  {
+    type: "public-sector",
+    label: "Public Sector Undertakings",
+    items: [
+      { label: "BHEL / NTPC / ONGC", value: "psu-core", type: "public-sector" },
+      { label: "ISRO / DRDO", value: "space-defense", type: "public-sector" },
+      { label: "BEL / HAL", value: "defense-psu", type: "public-sector" },
+    ],
+  },
+];
+
 // ================= TECHNOLOGIES =================
 const TECHNOLOGIES = [
   // Languages
@@ -138,6 +189,7 @@ const LOCATIONS = [
 ];
 
 const EMPTY_FORM = {
+  alertType: "it", // 👈 add this
   name: "",
   email: "",
   keywords: [],
@@ -145,6 +197,10 @@ const EMPTY_FORM = {
   location: "",
   otherLocation: "",
   frequency: "daily",
+
+  // government
+  govCategories: [],
+  qualification: "",
 };
 
 
@@ -158,7 +214,24 @@ const JobAlertForm = forwardRef(function JobAlertForm(
 ) {
   const { showToast } = useToast();
 
-  const [form, setForm] = useState(EMPTY_FORM);
+  const [form, setForm] = useState({
+    ...EMPTY_FORM,
+    alertType: "it",
+  });
+  
+  const [itData, setItData] = useState({
+    keywords: [],
+    experience: "Fresher",
+    location: "",
+    otherLocation: "",
+  });
+  
+  const [govData, setGovData] = useState({
+    govCategories: [],
+    qualification: "",
+  });
+
+
   const [initialForm, setInitialForm] = useState(EMPTY_FORM);
   const [sendingOtp,setSendingOtp] = useState(false);
   const [verifyingOtp, setVerifyingOtp] = useState(false);
@@ -166,12 +239,16 @@ const JobAlertForm = forwardRef(function JobAlertForm(
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
 
+  const [govSearch, setGovSearch] = useState("");
+  const [govOpen, setGovOpen] = useState(false);
+
 
 
   const [isUpdate, setIsUpdate] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [alertType,setAlertType] = useState(EMPTY_FORM?.alertType);
 
   /* Email + OTP */
   const [verified, setVerified] = useState(false);
@@ -180,6 +257,93 @@ const JobAlertForm = forwardRef(function JobAlertForm(
   const [otp, setOtp] = useState("");
   const [verificationToken, setVerificationToken] = useState("");
   const [alertId, setAlertId] = useState(getAlertId());
+
+
+  const handleAlertTypeChange = (type) => {
+    if (type === "it") {
+      // Save current government data before switching
+      setGovData({
+        govCategories: form.govCategories,
+        qualification: form.qualification,
+      });
+  
+      // Load IT data
+      setForm(prev => ({
+        ...prev,
+        alertType: "it",
+        keywords: itData.keywords,
+        experience: itData.experience,
+        location: itData.location,
+        otherLocation: itData.otherLocation,
+        govCategories: [],  // not needed but safe
+        qualification: "",
+      }));
+  
+    } else if (type === "government") {
+      // Save current IT data before switching
+      setItData({
+        keywords: form.keywords,
+        experience: form.experience,
+        location: form.location,
+        otherLocation: form.otherLocation,
+      });
+  
+      // Load Government data
+      setForm(prev => ({
+        ...prev,
+        alertType: "government",
+        govCategories: govData.govCategories,
+        qualification: govData.qualification,
+        keywords: [], // not needed but safe
+        experience: "Fresher",
+        location: "",
+        otherLocation: "",
+      }));
+    }
+  };
+
+const handleItChange = (e) => {
+  const { name, value } = e.target;
+  setItData(prev => ({ ...prev, [name]: value }));
+  setForm(prev => ({ ...prev, [name]: value }));
+};
+
+const handleGovChange = (e) => {
+  const { name, value } = e.target;
+  setGovData(prev => ({ ...prev, [name]: value }));
+  setForm(prev => ({ ...prev, [name]: value }));
+};
+
+
+  const addGovCategory = (item) => {
+    if (form.govCategories.length >= 3) {
+      showToast("Maximum 3 categories allowed", "error");
+      return;
+    }
+  
+    if (!form.govCategories.find(c => c.value === item.value)) {
+      setForm(prev => ({
+        ...prev,
+        govCategories: [...prev.govCategories, item],
+      }));
+    }
+  
+    setGovSearch("");
+  };
+  
+  const removeGovCategory = (value) => {
+    setForm(prev => ({
+      ...prev,
+      govCategories: prev.govCategories.filter(c => c.value !== value),
+    }));
+  };
+
+  const filteredGovOptions = GOV_OPTIONS.map(group => ({
+    ...group,
+    items: group.items.filter(item =>
+      item.label.toLowerCase().includes(govSearch.toLowerCase())
+    ),
+  })).filter(group => group.items.length > 0);
 
   /* ---------------- DIRTY CHECK ---------------- */
 
@@ -215,6 +379,7 @@ const JobAlertForm = forwardRef(function JobAlertForm(
         location: a.location || "",
         otherLocation: "",
         frequency: a.frequency || "daily",
+        alertType: a.alertType || "it", 
       };
 
       setForm(loaded);
@@ -392,10 +557,12 @@ const JobAlertForm = forwardRef(function JobAlertForm(
 
     const payload = {
       ...form,
-      keywords: form.keywords,
+      alertType: form.alertType,
       verificationToken,
       location:
-        form.location === "Other" ? form.otherLocation : form.location,
+        form.alertType === "it" && form.location === "Other"
+          ? form.otherLocation
+          : form.location,
     };
 
 
@@ -478,12 +645,32 @@ const JobAlertForm = forwardRef(function JobAlertForm(
     isUpdate,
     isDirty,
     saving,
+    alertType,
   }));
 
   /* ---------------- UI ---------------- */
 
   return (
     <>
+
+      <div className={styles.toggleWrapper}>
+        <button
+          type="button"
+          className={`${styles.toggleBtn} ${form.alertType === "it" ? styles.active : ""}`}
+          onClick={() => handleAlertTypeChange("it")}
+        >
+          IT
+        </button>
+
+        <button
+          type="button"
+          className={`${styles.toggleBtn} ${form.alertType === "government" ? styles.active : ""}`}
+          onClick={() => handleAlertTypeChange("government")}
+        >
+          Government
+        </button>
+      </div>
+
       <form className={styles.form}>
         <input
           name="name"
@@ -532,78 +719,156 @@ const JobAlertForm = forwardRef(function JobAlertForm(
           </div>
         )}
 
-      <div className={styles.fullRow}>
-        <p>Skills</p>
+    {form.alertType === "it" && (
+      <>
+        
+          <div className={styles.fullRow}>
+            <p>Skills</p>
 
-        {/* Input + selected chips */}
-        <div className={styles.multiInput}>
-          {form.keywords.map((item,index) => (
-            <span key={index} className={`${styles.tag} ${styles[item.type]}`}>
-              {item.label}
-              <button
-                type="button"
-                onClick={() => removeSkill(item.value)}
-                key={item.value}
-              >
-                ×
-              </button>
-            </span>
-          ))}
-
-          <input
-            type="text"
-            placeholder="Search roles, technologies or areas"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            onFocus={() => setOpen(true)}
-            onBlur={() => setTimeout(() => setOpen(false), 150)}
-          />
-        </div>
-
-        {/* Dropdown */}
-        {open && filteredOptions.length > 0 && (
-          <div className={styles.dropdown}>
-            {filteredOptions.map(group => (
-              <div key={group.type} className={styles.group}>
-                <span className={styles.groupLabel}>{group.label}</span>
-
-                {group.items.map(item => (
+            {/* Input + selected chips */}
+            <div className={styles.multiInput}>
+              {form.keywords.map((item,index) => (
+                <span key={index} className={`${styles.tag} ${styles[item.type]}`}>
+                  {item.label}
                   <button
-                    key={item.value}
                     type="button"
-                    onClick={() => addSkill(item)}
-                    className={`${styles.option} ${styles[item.type]}`}
+                    onClick={() => removeSkill(item.value)}
+                    key={item.value}
                   >
-                    {item.label}
+                    ×
                   </button>
+                </span>
+              ))}
+
+              <input
+                type="text"
+                placeholder="Search roles, technologies or areas"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                onFocus={() => setOpen(true)}
+                onBlur={() => setTimeout(() => setOpen(false), 150)}
+              />
+            </div>
+
+            {/* Dropdown */}
+            {open && filteredOptions.length > 0 && (
+              <div className={styles.dropdown}>
+                {filteredOptions.map(group => (
+                  <div key={group.type} className={styles.group}>
+                    <span className={styles.groupLabel}>{group.label}</span>
+
+                    {group.items.map(item => (
+                      <button
+                        key={item.value}
+                        type="button"
+                        onClick={() => addSkill(item)}
+                        className={`${styles.option} ${styles[item.type]}`}
+                      >
+                        {item.label}
+                      </button>
+                    ))}
+                  </div>
                 ))}
               </div>
-            ))}
+            )}
           </div>
-        )}
-      </div>
 
 
-        <select name="experience" value={form.experience} onChange={handleChange}>
-          <option>Fresher</option>
-          <option>0-1 years</option>
-          <option>1-2 years</option>
-          <option>2-5 years</option>
+            <select name="experience" value={form.experience} onChange={handleItChange}>
+              <option>Fresher</option>
+              <option>0-1 years</option>
+              <option>1-2 years</option>
+              <option>2-5 years</option>
+            </select>
+
+            <select name="location" value={form.location} onChange={handleItChange}>
+              <option value="">Select Location</option>
+              {LOCATIONS.map(l => <option key={l}>{l}</option>)}
+            </select>
+
+            {form.location === "Other" && (
+              <input
+                name="otherLocation"
+                value={form.otherLocation}
+                onChange={handleItChange}
+                placeholder="Enter location"
+              />
+            )}
+
+    </>
+    )}
+
+    {form.alertType === "government" && (
+      <>
+        {/* Government Categories */}
+        <div className={styles.fullRow}>
+          <p>Government Categories</p>
+
+          <div className={styles.multiInput}>
+            {form.govCategories?.map((item, index) => (
+              <span
+                key={index}
+                className={`${styles.tag} ${styles[item.type]}`}
+              >
+                {item.label}
+                <button
+                  type="button"
+                  onClick={() => removeGovCategory(item.value)}
+                >
+                  ×
+                </button>
+              </span>
+            ))}
+
+            <input
+              type="text"
+              placeholder="Search government categories"
+              value={govSearch}
+              onChange={(e) => setGovSearch(e.target.value)}
+              onFocus={() => setGovOpen(true)}
+              onBlur={() => setTimeout(() => setGovOpen(false), 150)}
+            />
+          </div>
+
+          {govOpen && filteredGovOptions.length > 0 && (
+            <div className={styles.dropdown}>
+              {filteredGovOptions.map(group => (
+                <div key={group.type} className={styles.group}>
+                  <span className={styles.groupLabel}>
+                    {group.label}
+                  </span>
+
+                  {group.items.map(item => (
+                    <button
+                      key={item.value}
+                      type="button"
+                      onClick={() => addGovCategory(item)}
+                      className={`${styles.option} ${styles[item.type]}`}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Qualification */}
+        <select
+          name="qualification"
+          value={form.qualification}
+          onChange={handleGovChange}
+        >
+          <option value="">Select Qualification</option>
+          <option value="10th">10th</option>
+          <option value="12th">12th</option>
+          <option value="diploma">Diploma</option>
+          <option value="degree">Degree</option>
+          <option value="postgraduate">Postgraduate</option>
         </select>
-
-        <select name="location" value={form.location} onChange={handleChange}>
-          <option value="">Select Location</option>
-          {LOCATIONS.map(l => <option key={l}>{l}</option>)}
-        </select>
-
-        {form.location === "Other" && (
-          <input
-            name="otherLocation"
-            value={form.otherLocation}
-            onChange={handleChange}
-            placeholder="Enter location"
-          />
-        )}
+      </>
+    )}
 
         <select name="frequency" value={form.frequency} onChange={handleChange}>
           <option value="daily">Daily</option>
